@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ───────────────────────────────────────────────────── */
+@theme {
+  --color-ink: #0a0a0a; /* page background */
+  --color-coal: #121212; /* raised surfaces */
+  --color-ash: #262626; /* hairlines */
+  --color-smoke: #8f8f88; /* muted text */
+  --color-bone: #f4f4ef; /* primary text */
+  --color-volt: #c6ff00; /* the one accent. Swap here, e.g. #ff5a1f */
+
+  /* Anton / Inter have no Arabic glyphs, so Arabic text falls through to
+     Lalezar / Cairo automatically. Only the subsets on screen are fetched. */
+  --font-display: "Anton", "Lalezar", "Impact", "Arial Narrow", sans-serif;
+  --font-sans: "Inter Variable", "Cairo Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-reverse: marquee 44s linear infinite reverse;
+  --animate-spin-slow: spin-angle 5s linear infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes spin-angle {
+    to {
+      --angle: 360deg;
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.35;
+      transform: scale(0.7);
+    }
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-bone);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scrollbar-color: var(--color-ash) var(--color-ink);
+  }
+
+  /* Arabic script: no tracking (it breaks letter joining), taller lines. */
+  [dir="rtl"] {
+    --display-leading: 1.22;
+    --display-tracking: 0em;
+    --eyebrow-size: 0.85rem;
+    --eyebrow-tracking: 0em;
+    line-height: 1.8;
+  }
+
+  html.is-loading,
+  html.is-loading body {
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-ink);
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-volt);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-volt);
+    outline-offset: 3px;
+  }
+
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+}
+
+/* ─── Type ────────────────────────────────────────────────────────────── */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: var(--display-leading, 0.92);
+  letter-spacing: var(--display-tracking, -0.005em);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--eyebrow-size, 0.72rem);
+  font-weight: 600;
+  letter-spacing: var(--eyebrow-tracking, 0.22em);
+  text-transform: uppercase;
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-bone) 32%, transparent);
+}
+
+@utility wrap {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+@layer components {
+/* SplitText line masks: keep accents (É) and Arabic marks from clipping. */
+.split-line-mask {
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+}
+[dir="rtl"] .split-line-mask {
+  padding-block: 0.2em;
+  margin-block: -0.2em;
+}
+
+/* ─── Texture ─────────────────────────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+.hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 14px,
+    color-mix(in srgb, var(--color-bone) 5%, transparent) 14px 15px
+  );
+}
+
+/* ─── Glow button ─────────────────────────────────────────────────────── */
+.glow-btn {
+  --glow: color-mix(in srgb, var(--color-volt) 55%, transparent);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  background: var(--color-volt);
+  color: var(--color-ink);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.15;
+  text-align: center;
+  transition:
+    transform 0.5s var(--ease-expo),
+    box-shadow 0.5s var(--ease-expo);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-volt) 60%, transparent),
+    0 10px 40px -8px var(--glow);
+}
+/* rotating light on the rim */
+.glow-btn::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--angle), transparent 0 70%, #fff 85%, transparent 100%);
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: var(--animate-spin-slow);
+}
+.glow-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 0 0 1px var(--color-volt),
+    0 16px 60px -6px var(--glow);
+}
+.glow-btn:active {
+  transform: scale(0.98);
+}
+.glow-btn .roll {
+  display: grid;
+  overflow: hidden;
+}
+.glow-btn .roll > span {
+  grid-area: 1 / 1;
+  transition: transform 0.55s var(--ease-expo);
+}
+.glow-btn .roll > span:last-child {
+  transform: translateY(110%);
+}
+.glow-btn:hover .roll > span:first-child {
+  transform: translateY(-110%);
+}
+.glow-btn:hover .roll > span:last-child {
+  transform: translateY(0);
+}
+
+/* ─── Spotlight card ──────────────────────────────────────────────────── */
+.spot {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  isolation: isolate;
+  border-radius: 1.5rem;
+  background: var(--color-coal);
+  border: 1px solid var(--color-ash);
+  transform-style: preserve-3d;
+}
+.spot::before,
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+/* soft light following the pointer */
+.spot::before {
+  z-index: -1;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--color-volt) 12%, transparent),
+    transparent 65%
+  );
+}
+/* the border catching that same light */
+.spot::after {
+  padding: 1px;
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    var(--color-volt),
+    transparent 70%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+.spot:hover::before,
+.spot:hover::after,
+.spot[data-featured="true"]::before {
+  opacity: 1;
+}
+
+/* featured pricing card: slow rotating rim */
+.rim {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--angle),
+    var(--color-volt),
+    transparent 25%,
+    transparent 50%,
+    var(--color-volt) 75%,
+    transparent 90%,
+    var(--color-volt)
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: spin-angle 7s linear infinite;
+}
+
+/* ─── Marquee ─────────────────────────────────────────────────────────── */
+.marquee-fade {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
