@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-title-en="Contact — trainwithnajib" data-title-fr="Contact — trainwithnajib">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — trainwithnajib</title>
+<meta name="description" content="Contact coach Najib on WhatsApp, by email or Instagram, or book a call to talk about your fitness goals.">
+<meta property="og:title" content="Contact — trainwithnajib">
+<meta property="og:description" content="Contact coach Najib on WhatsApp, by email or Instagram, or book a call to talk about your fitness goals.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/barbell.webp">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+/* set language + theme before first paint */
+(function(){var d=document.documentElement;try{var s=localStorage;
+d.lang=s.getItem("twn-lang")||((navigator.language||"en").slice(0,2)==="fr"?"fr":"en");
+d.setAttribute("data-theme",s.getItem("twn-theme")||"dark")}catch(e){}})();
+</script>
+</head>
+<body data-page="contact">
+<div class="app">
+<aside id="side"></aside>
+<div class="frame">
+<header id="top"></header>
+<main>
+<section class="phero phero--form">
+  <article class="card card--light" style="padding:40px">
+    <span class="eyebrow">Contact</span>
+    <h1 class="h-lg mt-12"><span data-l="en">Tell me your goal</span><span data-l="fr">Dites-moi votre objectif</span></h1>
+    <p class="muted mt-12" style="max-width:52ch"><span data-l="en">Fill in the form and send it on WhatsApp or by email. I reply personally.</span><span data-l="fr">Remplissez le formulaire et envoyez-le sur WhatsApp ou par e-mail. Je réponds personnellement.</span></p>
+    <form id="contactForm" class="form-grid mt-24">
+      <div class="field"><label for="f-name"><span data-l="en">Name</span><span data-l="fr">Nom</span></label><input id="f-name" name="name" required autocomplete="name" data-ph-en="Your name" data-ph-fr="Votre nom"></div>
+      <div class="field"><label for="f-goal"><span data-l="en">Goal</span><span data-l="fr">Objectif</span></label>
+        <select id="f-goal" name="goal">
+          <option data-en="Fat loss" data-fr="Perte de gras">Fat loss</option>
+          <option data-en="Muscle gain" data-fr="Prise de muscle">Muscle gain</option>
+          <option data-en="Strength" data-fr="Force">Strength</option>
+          <option data-en="Getting started" data-fr="Débuter">Getting started</option>
+          <option data-en="Other" data-fr="Autre">Other</option>
+        </select></div>
+      <div class="field full"><label for="f-plan"><span data-l="en">Plan</span><span data-l="fr">Formule</span></label>
+        <select id="f-plan" name="plan">
+          <option value="" data-en="Not sure yet" data-fr="Je ne sais pas encore">Not sure yet</option>
+          <option value="m1" data-en="1 month — $80" data-fr="1 mois — 80 $">1 month — $80</option>
+          <option value="m3" data-en="3 months — $219" data-fr="3 mois — 219 $">3 months — $219</option>
+          <option value="m6" data-en="6 months — $399" data-fr="6 mois — 399 $">6 months — $399</option>
+        </select></div>
+      <div class="field full"><label for="f-msg"><span data-l="en">Message</span><span data-l="fr">Message</span></label><textarea id="f-msg" name="message" data-ph-en="Your job, your schedule, your level…" data-ph-fr="Votre travail, votre emploi du temps, votre niveau…"></textarea></div>
+      <div class="full row gap-12 wrap">
+        <button class="btn btn--accent" type="submit" value="wa"><span data-icon="wa" style="display:inline-grid"></span><span data-l="en">Send on WhatsApp</span><span data-l="fr">Envoyer sur WhatsApp</span></button>
+        <button class="btn btn--ghost" type="submit" value="mail"><span data-l="en">Send by email</span><span data-l="fr">Envoyer par e-mail</span></button>
+      </div>
+    </form>
+  </article>
+  <div class="grid" style="align-content:start">
+    <a class="channel" target="_blank" rel="noopener" data-wa-en="Hi Najib, I found your website and I'd like to start coaching." data-wa-fr="Salut Najib, j'ai vu ton site et j'aimerais commencer le coaching."><span class="channel__icon" data-icon="wa"></span><span><small>WhatsApp</small><b data-fill="whatsapp"></b></span><span class="arrow" data-icon="arrow"></span></a>
+    <a class="channel" data-email><span class="channel__icon" data-icon="mail"></span><span><small>Email</small><b data-fill="email"></b></span><span class="arrow" data-icon="arrow"></span></a>
+    <a class="channel" data-insta target="_blank" rel="noopener"><span class="channel__icon" data-icon="insta"></span><span><small>Instagram</small><b data-fill="instagram"></b></span><span class="arrow" data-icon="arrow"></span></a>
+    <a class="channel" data-book><span class="channel__icon" data-icon="calendar"></span><span><small><span data-l="en">Prefer to talk?</span><span data-l="fr">Vous préférez parler ?</span></small><b><span data-l="en">Book a call</span><span data-l="fr">Réserver un appel</span></b></span><span class="arrow" data-icon="arrow"></span></a>
+    <article class="card card--img" style="min-height:220px"><img src="assets/img/gym.webp" alt="" loading="lazy"><div class="card__body"><div class="mt-auto"><span class="eyebrow">Fes · Morocco</span><h2 class="h-sm mt-8"><span data-l="en">Online coaching, wherever you are.</span><span data-l="fr">Coaching en ligne, où que vous soyez.</span></h2></div></div></article>
+  </div>
+</section>
+</main>
+<footer id="foot"></footer>
+</div>
+</div>
+<noscript><p style="padding:20px;text-align:center"><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="pricing.html">Pricing</a> · <a href="about.html">About</a> · <a href="blog.html">Blog</a> · <a href="contact.html">Contact</a></p></noscript>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
